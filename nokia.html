@@ -10,6 +10,8 @@
 </head>
 <body>
 
+  <div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="reading-progress-bar"></div></div>
+
   <header class="site-header">
     <div class="nav-row">
       <a class="brand" href="index.html">ICW <span>Intermezzo's</span></a>
@@ -48,17 +50,19 @@
 
       <section aria-labelledby="inhoud-titel">
         <h2 id="inhoud-titel">Wat komt aan bod?</h2>
-        <div class="two-col">
-          <div class="panel">
-            <h3>Thuisnetwerken</h3>
+        <div class="tabs">
+          <div class="tab-list" role="tablist" aria-label="Onderwerpen">
+            <button class="tab-btn is-active" type="button" role="tab" id="tab-thuis" aria-controls="panel-thuis" aria-selected="true">Thuisnetwerken</button>
+            <button class="tab-btn" type="button" role="tab" id="tab-telecom" aria-controls="panel-telecom" aria-selected="false" tabindex="-1">Telecomnetwerken</button>
+          </div>
+          <div class="panel tab-panel" id="panel-thuis" role="tabpanel" aria-labelledby="tab-thuis">
             <p>
               Router- en modemconfiguratie, wifi-standaarden, IP-adressering
               binnen een thuisnetwerk en de meest voorkomende problemen bij
               een trage of onstabiele verbinding.
             </p>
           </div>
-          <div class="panel">
-            <h3>Telecomnetwerken</h3>
+          <div class="panel tab-panel" id="panel-telecom" role="tabpanel" aria-labelledby="tab-telecom" hidden>
             <p>
               Hoe mobiele netwerken (4G/5G) en vaste netwerken (glasvezel,
               kabel) opgebouwd zijn, en welke rol een telecomoperator zoals
@@ -103,6 +107,10 @@
       <span><a href="index.html">← Terug naar overzicht</a></span>
     </div>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Terug naar boven">↑</button>
+
+  <script src="js/site.js" defer></script>
 
 </body>
 </html>

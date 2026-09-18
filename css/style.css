@@ -59,6 +59,53 @@ img{ max-width:100%; display:block; height:auto; }
   padding:0 1.5rem;
 }
 
+/* ---------- Leesvoortgang & terug-naar-boven ---------- */
+
+.reading-progress{
+  position:fixed;
+  top:0; left:0; right:0;
+  height:3px;
+  z-index:30;
+  background:transparent;
+}
+
+.reading-progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--accent);
+}
+
+.back-to-top{
+  position:fixed;
+  right:1.4rem;
+  bottom:1.4rem;
+  width:2.8rem;
+  height:2.8rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:var(--text);
+  font-size:1.2rem;
+  line-height:1;
+  cursor:pointer;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(8px);
+  transition:opacity .2s ease, transform .2s ease, border-color .2s ease;
+  z-index:20;
+}
+
+.back-to-top.is-visible{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateY(0);
+}
+
+.back-to-top:hover{ border-color:var(--accent-2); }
+
 /* ---------- Header / navigatie ---------- */
 
 header.site-header{
@@ -166,17 +213,50 @@ section{ margin-bottom:3rem; }
 
 .panel + .panel{ margin-top:1rem; }
 
-.two-col{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:1.5rem;
+/* ---------- Voortgangstracker (lessenreeks) ---------- */
+
+.progress-tracker{
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem 1.2rem;
+  margin-bottom:1.2rem;
 }
 
-@media (max-width:700px){
-  .two-col{ grid-template-columns:1fr; }
+.progress-tracker-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:.75rem;
+  margin-bottom:.6rem;
+  font-size:.9rem;
 }
 
-/* ---------- Lessenreeks (echte volgorde => nummering) ---------- */
+.progress-tracker-label{ color:var(--text-muted); }
+
+.progress-tracker-count{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:600;
+  color:var(--accent-2);
+  white-space:nowrap;
+}
+
+.progress-bar-track{
+  height:8px;
+  border-radius:99px;
+  background:var(--border);
+  overflow:hidden;
+}
+
+.progress-bar-fill{
+  height:100%;
+  width:0%;
+  background:var(--accent-2);
+  border-radius:99px;
+  transition:width .25s ease;
+}
+
+/* ---------- Lessenreeks (accordeon met voortgang) ---------- */
 
 .lesson-list{
   list-style:none;
@@ -186,26 +266,86 @@ section{ margin-bottom:3rem; }
   gap:.75rem;
 }
 
-.lesson-list li{
-  display:grid;
-  grid-template-columns:2.6rem 1fr;
-  gap:1rem;
-  align-items:start;
+.lesson-details{
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  padding:1rem 1.2rem;
+  overflow:hidden;
+  transition:border-color .15s ease;
 }
+
+.lesson-details[open]{ border-color:var(--accent-2); }
+
+.lesson-summary{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  padding:1rem 1.2rem;
+  cursor:pointer;
+  list-style:none;
+  user-select:none;
+}
+
+.lesson-summary::-webkit-details-marker{ display:none; }
+
+.lesson-summary::after{
+  content:"+";
+  margin-left:auto;
+  color:var(--text-muted);
+  font-family:'Space Grotesk', sans-serif;
+  font-size:1.3rem;
+  flex-shrink:0;
+}
+
+.lesson-details[open] .lesson-summary::after{ content:"–"; }
 
 .lesson-num{
   font-family:'Space Grotesk', sans-serif;
   font-weight:700;
   color:var(--accent);
   font-size:1.2rem;
+  flex-shrink:0;
 }
 
-.lesson-list h3{ margin-bottom:.2rem; }
-.lesson-list p{ margin:0; color:var(--text-muted); font-size:.95rem; }
+.lesson-item.is-done .lesson-num{ color:var(--accent-2); }
+
+.lesson-title{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:600;
+  font-size:1.05rem;
+}
+
+.lesson-item.is-done .lesson-title{
+  color:var(--text-muted);
+  text-decoration:line-through;
+  text-decoration-color:var(--border);
+}
+
+.lesson-check{
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  font-size:.85rem;
+  color:var(--text-muted);
+  flex-shrink:0;
+  white-space:nowrap;
+}
+
+.lesson-check input{
+  width:1rem;
+  height:1rem;
+  accent-color:var(--accent-2);
+  cursor:pointer;
+}
+
+.lesson-check label{ cursor:pointer; }
+
+.lesson-body{
+  margin:0;
+  padding:0 1.2rem 1.1rem 1.2rem;
+  color:var(--text-muted);
+  font-size:.95rem;
+}
 
 /* ---------- Wall of Fame (tijdlijn => jaartallen) ---------- */
 
@@ -240,6 +380,72 @@ section{ margin-bottom:3rem; }
   display:block;
   margin-bottom:.15rem;
 }
+
+.timeline li.is-hidden{ display:none; }
+
+/* ---------- Filterknoppen (Wall of Fame) ---------- */
+
+.filter-bar{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  margin:1rem 0 1.4rem;
+}
+
+.filter-btn{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text-muted);
+  font:inherit;
+  font-size:.85rem;
+  font-weight:500;
+  padding:.4rem .9rem;
+  border-radius:99px;
+  cursor:pointer;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
+}
+
+.filter-btn:hover{ border-color:var(--accent-2); color:var(--text); }
+
+.filter-btn.is-active{
+  background:var(--accent-2);
+  border-color:var(--accent-2);
+  color:#04211c;
+}
+
+/* ---------- Tabs (Nokia) ---------- */
+
+.tab-list{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  margin-bottom:0;
+}
+
+.tab-btn{
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  border-bottom:none;
+  color:var(--text-muted);
+  font:inherit;
+  font-weight:600;
+  font-size:.95rem;
+  padding:.65rem 1.2rem;
+  border-radius:8px 8px 0 0;
+  cursor:pointer;
+  transition:color .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.tab-btn:hover{ color:var(--text); }
+
+.tab-btn.is-active{
+  color:var(--text);
+  background:var(--panel);
+  border-color:var(--border);
+  position:relative;
+}
+
+.tab-panel{ margin-top:0; border-top-left-radius:0; }
 
 /* ---------- Infokaart (praktisch) ---------- */
 
@@ -309,6 +515,35 @@ section{ margin-bottom:3rem; }
   font-size:.8rem;
   font-weight:600;
 }
+
+.card-details{
+  margin-top:.2rem;
+  border-top:1px solid var(--border);
+  padding-top:.7rem;
+}
+
+.card-details summary{
+  cursor:pointer;
+  color:var(--accent-2);
+  font-size:.85rem;
+  font-weight:600;
+  list-style:none;
+}
+
+.card-details summary::-webkit-details-marker{ display:none; }
+.card-details summary::before{ content:"▸ "; }
+.card-details[open] summary::before{ content:"▾ "; }
+
+.card-details dl{
+  margin:.7rem 0 0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.3rem .8rem;
+  font-size:.85rem;
+}
+
+.card-details dt{ color:var(--text-muted); }
+.card-details dd{ margin:0; }
 
 /* ---------- Footer ---------- */
 

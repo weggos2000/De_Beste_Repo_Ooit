@@ -10,6 +10,8 @@
 </head>
 <body>
 
+  <div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="reading-progress-bar"></div></div>
+
   <header class="site-header">
     <div class="nav-row">
       <a class="brand" href="index.html">ICW <span>Intermezzo's</span></a>
@@ -67,17 +69,25 @@
 
       <section aria-labelledby="wof-titel">
         <h2 id="wof-titel">Wall of Fame</h2>
-        <p>De leerlingen die onze school al vertegenwoordigden op de Kevin Mitnick Games.</p>
+        <p>De leerlingen die onze school al vertegenwoordigden op de Kevin Mitnick Games. Filter op jaar om snel iemand terug te vinden.</p>
+
+        <div class="filter-bar" role="group" aria-label="Filter Wall of Fame op jaar">
+          <button class="filter-btn is-active" type="button" data-year="all">Alle jaren</button>
+          <button class="filter-btn" type="button" data-year="2024">2024</button>
+          <button class="filter-btn" type="button" data-year="2025">2025</button>
+          <button class="filter-btn" type="button" data-year="2026">2026</button>
+        </div>
+
         <ol class="timeline">
-          <li>
+          <li data-year="2024">
             <span class="year">2024</span>
             Devos Leon en Sarah Bonne
           </li>
-          <li>
+          <li data-year="2025">
             <span class="year">2025</span>
             Alboort Lars
           </li>
-          <li>
+          <li data-year="2026">
             <span class="year">2026</span>
             Boone Vic
           </li>
@@ -107,6 +117,10 @@
       <span><a href="index.html">← Terug naar overzicht</a></span>
     </div>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Terug naar boven">↑</button>
+
+  <script src="js/site.js" defer></script>
 
 </body>
 </html>
