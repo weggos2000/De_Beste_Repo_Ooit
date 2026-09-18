@@ -10,6 +10,8 @@
 </head>
 <body>
 
+  <div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="reading-progress-bar"></div></div>
+
   <header class="site-header">
     <div class="nav-row">
       <a class="brand" href="index.html">ICW <span>Intermezzo's</span></a>
@@ -47,62 +49,122 @@
 
       <section aria-labelledby="lessen-titel">
         <h2 id="lessen-titel">De 8 lessen</h2>
+        <p>Klik een les open voor de uitleg, en vink aan wat je al hebt afgerond — je voortgang wordt onthouden op dit toestel.</p>
+
+        <div class="progress-tracker">
+          <div class="progress-tracker-head">
+            <span class="progress-tracker-label">Jouw voortgang</span>
+            <span class="progress-tracker-count" id="progress-count">0/8 voltooid</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
         <ol class="lesson-list">
-          <li>
-            <span class="lesson-num">1</span>
-            <div>
-              <h3>Wat is Git, wat is GitHub?</h3>
-              <p>Het verschil tussen het versiebeheersysteem Git en het platform GitHub, en waarom developers ze gebruiken.</p>
-            </div>
+          <li class="lesson-item">
+            <details class="lesson-details">
+              <summary class="lesson-summary">
+                <span class="lesson-num">1</span>
+                <span class="lesson-title">Wat is Git, wat is GitHub?</span>
+                <span class="lesson-check">
+                  <input type="checkbox" id="lesson-1" data-lesson="1">
+                  <label for="lesson-1">Voltooid</label>
+                </span>
+              </summary>
+              <p class="lesson-body">Het verschil tussen het versiebeheersysteem Git en het platform GitHub, en waarom developers ze gebruiken.</p>
+            </details>
           </li>
-          <li>
-            <span class="lesson-num">2</span>
-            <div>
-              <h3>Een repository aanmaken</h3>
-              <p>Lokaal een repository initialiseren en koppelen aan een repository op GitHub.</p>
-            </div>
+          <li class="lesson-item">
+            <details class="lesson-details">
+              <summary class="lesson-summary">
+                <span class="lesson-num">2</span>
+                <span class="lesson-title">Een repository aanmaken</span>
+                <span class="lesson-check">
+                  <input type="checkbox" id="lesson-2" data-lesson="2">
+                  <label for="lesson-2">Voltooid</label>
+                </span>
+              </summary>
+              <p class="lesson-body">Lokaal een repository initialiseren en koppelen aan een repository op GitHub.</p>
+            </details>
           </li>
-          <li>
-            <span class="lesson-num">3</span>
-            <div>
-              <h3>Bestanden toevoegen en committen</h3>
-              <p>Werken met <code>git add</code> en <code>git commit</code>, en het schrijven van duidelijke commitberichten.</p>
-            </div>
+          <li class="lesson-item">
+            <details class="lesson-details">
+              <summary class="lesson-summary">
+                <span class="lesson-num">3</span>
+                <span class="lesson-title">Bestanden toevoegen en committen</span>
+                <span class="lesson-check">
+                  <input type="checkbox" id="lesson-3" data-lesson="3">
+                  <label for="lesson-3">Voltooid</label>
+                </span>
+              </summary>
+              <p class="lesson-body">Werken met <code>git add</code> en <code>git commit</code>, en het schrijven van duidelijke commitberichten.</p>
+            </details>
           </li>
-          <li>
-            <span class="lesson-num">4</span>
-            <div>
-              <h3>Wijzigingen pushen en pullen</h3>
-              <p>Lokale wijzigingen naar GitHub sturen en wijzigingen van anderen ophalen.</p>
-            </div>
+          <li class="lesson-item">
+            <details class="lesson-details">
+              <summary class="lesson-summary">
+                <span class="lesson-num">4</span>
+                <span class="lesson-title">Wijzigingen pushen en pullen</span>
+                <span class="lesson-check">
+                  <input type="checkbox" id="lesson-4" data-lesson="4">
+                  <label for="lesson-4">Voltooid</label>
+                </span>
+              </summary>
+              <p class="lesson-body">Lokale wijzigingen naar GitHub sturen en wijzigingen van anderen ophalen.</p>
+            </details>
           </li>
-          <li>
-            <span class="lesson-num">5</span>
-            <div>
-              <h3>Werken met branches</h3>
-              <p>Een nieuwe branch aanmaken om aan een feature te werken zonder de hoofdcode te verstoren.</p>
-            </div>
+          <li class="lesson-item">
+            <details class="lesson-details">
+              <summary class="lesson-summary">
+                <span class="lesson-num">5</span>
+                <span class="lesson-title">Werken met branches</span>
+                <span class="lesson-check">
+                  <input type="checkbox" id="lesson-5" data-lesson="5">
+                  <label for="lesson-5">Voltooid</label>
+                </span>
+              </summary>
+              <p class="lesson-body">Een nieuwe branch aanmaken om aan een feature te werken zonder de hoofdcode te verstoren.</p>
+            </details>
           </li>
-          <li>
-            <span class="lesson-num">6</span>
-            <div>
-              <h3>Merge conflicts oplossen</h3>
-              <p>Wat een mergeconflict is, hoe je het herkent en hoe je het manueel oplost.</p>
-            </div>
+          <li class="lesson-item">
+            <details class="lesson-details">
+              <summary class="lesson-summary">
+                <span class="lesson-num">6</span>
+                <span class="lesson-title">Merge conflicts oplossen</span>
+                <span class="lesson-check">
+                  <input type="checkbox" id="lesson-6" data-lesson="6">
+                  <label for="lesson-6">Voltooid</label>
+                </span>
+              </summary>
+              <p class="lesson-body">Wat een mergeconflict is, hoe je het herkent en hoe je het manueel oplost.</p>
+            </details>
           </li>
-          <li>
-            <span class="lesson-num">7</span>
-            <div>
-              <h3>Pull requests en code reviews</h3>
-              <p>Een pull request openen, feedback verwerken en code laten nakijken door een teamgenoot.</p>
-            </div>
+          <li class="lesson-item">
+            <details class="lesson-details">
+              <summary class="lesson-summary">
+                <span class="lesson-num">7</span>
+                <span class="lesson-title">Pull requests en code reviews</span>
+                <span class="lesson-check">
+                  <input type="checkbox" id="lesson-7" data-lesson="7">
+                  <label for="lesson-7">Voltooid</label>
+                </span>
+              </summary>
+              <p class="lesson-body">Een pull request openen, feedback verwerken en code laten nakijken door een teamgenoot.</p>
+            </details>
           </li>
-          <li>
-            <span class="lesson-num">8</span>
-            <div>
-              <h3>README en .gitignore</h3>
-              <p>Een project documenteren met een README en bepalen welke bestanden je niet wil versiebeheren.</p>
-            </div>
+          <li class="lesson-item">
+            <details class="lesson-details">
+              <summary class="lesson-summary">
+                <span class="lesson-num">8</span>
+                <span class="lesson-title">README en .gitignore</span>
+                <span class="lesson-check">
+                  <input type="checkbox" id="lesson-8" data-lesson="8">
+                  <label for="lesson-8">Voltooid</label>
+                </span>
+              </summary>
+              <p class="lesson-body">Een project documenteren met een README en bepalen welke bestanden je niet wil versiebeheren.</p>
+            </details>
           </li>
         </ol>
       </section>
@@ -130,6 +192,10 @@
       <span><a href="index.html">← Terug naar overzicht</a></span>
     </div>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Terug naar boven">↑</button>
+
+  <script src="js/site.js" defer></script>
 
 </body>
 </html>
