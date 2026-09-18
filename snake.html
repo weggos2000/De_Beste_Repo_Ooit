@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake — Intermezzo's ICW</title>
+  <meta name="description" content="Speel een potje snake — leuke pauze tussen de intermezzo's van het 5e jaar Hardware, richting ICW.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="media/favicon.svg" type="image/svg+xml">
+  <style>
+    /* Losse styling specifiek voor de snake-pagina, zodat css/style.css niet moet aangepast worden */
+    .game-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .game-scoreboard {
+      display: flex;
+      gap: 2rem;
+      font-size: 1.1rem;
+    }
+    .game-scoreboard strong {
+      font-variant-numeric: tabular-nums;
+    }
+    #snake-canvas {
+      background: #0f172a;
+      border-radius: 12px;
+      max-width: 100%;
+      height: auto;
+      touch-action: none;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+    }
+    .game-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+    .game-dpad {
+      display: grid;
+      grid-template-columns: repeat(3, 48px);
+      grid-template-rows: repeat(3, 48px);
+      gap: 4px;
+    }
+    .game-dpad button {
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #fff;
+      cursor: pointer;
+    }
+    .game-dpad button:active { background: #334155; }
+    .dpad-up { grid-column: 2; grid-row: 1; }
+    .dpad-left { grid-column: 1; grid-row: 2; }
+    .dpad-right { grid-column: 3; grid-row: 2; }
+    .dpad-down { grid-column: 2; grid-row: 3; }
+    .game-overlay-msg {
+      text-align: center;
+      font-weight: 600;
+    }
+    .btn.is-secondary {
+      background: transparent;
+      border: 1px solid currentColor;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="reading-progress-bar"></div></div>
+
+  <header class="site-header">
+    <div class="nav-row">
+      <a class="brand" href="index.html">ICW <span>Intermezzo's</span></a>
+      <nav class="main-nav" aria-label="Hoofdnavigatie">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="kevin-mitnick.html">Kevin Mitnick Games</a></li>
+          <li><a href="github.html">GitHub basisvaardigheden</a></li>
+          <li><a href="nokia.html">Nokia Games</a></li>
+          <li><a href="snake.html" aria-current="page">Snake</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Pauzemomentje</p>
+        <h1>Snake</h1>
+        <p>
+          Even niets met Git, hacken of telecom te maken — gewoon een
+          klassiek potje snake. Gebruik de pijltjestoetsen (of WASD) op je
+          toetsenbord, of de knoppen hieronder op een touchscreen.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+
+      <section aria-labelledby="spel-titel">
+        <h2 id="spel-titel">Speel het spel</h2>
+
+        <div class="game-wrap">
+          <div class="game-scoreboard">
+            <span>Score: <strong id="score">0</strong></span>
+            <span>Beste: <strong id="best-score">0</strong></span>
+          </div>
+
+          <canvas id="snake-canvas" width="400" height="400" role="img" aria-label="Snake speelveld"></canvas>
+
+          <p class="game-overlay-msg" id="game-message">Druk op een pijltjestoets om te starten.</p>
+
+          <div class="game-controls">
+            <button class="btn" type="button" id="start-btn">Start / Herstart</button>
+            <button class="btn is-secondary" type="button" id="pause-btn">Pauze</button>
+          </div>
+
+          <div class="game-dpad" aria-label="Besturing">
+            <button class="dpad-up" type="button" data-dir="up" aria-label="Omhoog">↑</button>
+            <button class="dpad-left" type="button" data-dir="left" aria-label="Links">←</button>
+            <button class="dpad-right" type="button" data-dir="right" aria-label="Rechts">→</button>
+            <button class="dpad-down" type="button" data-dir="down" aria-label="Omlaag">↓</button>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="info-titel">
+        <h2 id="info-titel">Hoe werkt het?</h2>
+        <div class="info-card">
+          <dl>
+            <dt>Besturing</dt>
+            <dd>Pijltjestoetsen, WASD of de knoppen op het scherm</dd>
+            <dt>Doel</dt>
+            <dd>Eet zoveel mogelijk stipjes zonder tegen jezelf of de rand te botsen</dd>
+            <dt>Score</dt>
+            <dd>Je beste score wordt onthouden op dit toestel</dd>
+          </dl>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>5e jaar Hardware — richting ICW</span>
+      <span><a href="index.html">← Terug naar overzicht</a></span>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Terug naar boven">↑</button>
+
+  <script src="js/site.js" defer></script>
+  <script>
+    (function () {
+      const canvas = document.getElementById('snake-canvas');
+      const ctx = canvas.getContext('2d');
+      const grid = 20; // pixels per cel
+      const cells = canvas.width / grid; // 20x20 speelveld
+
+      const scoreEl = document.getElementById('score');
+      const bestScoreEl = document.getElementById('best-score');
+      const messageEl = document.getElementById('game-message');
+      const startBtn = document.getElementById('start-btn');
+      const pauseBtn = document.getElementById('pause-btn');
+
+      const STORAGE_KEY = 'icw-snake-best-score';
+      let best = Number(localStorage.getItem(STORAGE_KEY)) || 0;
+      bestScoreEl.textContent = best;
+
+      let snake, direction, nextDirection, food, score, running, paused, loopId;
+      const speedMs = 110;
+
+      function randomFood() {
+        let pos;
+        do {
+          pos = {
+            x: Math.floor(Math.random() * cells),
+            y: Math.floor(Math.random() * cells)
+          };
+        } while (snake.some(s => s.x === pos.x && s.y === pos.y));
+        return pos;
+      }
+
+      function resetGame() {
+        snake = [
+          { x: 10, y: 10 },
+          { x: 9, y: 10 },
+          { x: 8, y: 10 }
+        ];
+        direction = { x: 1, y: 0 };
+        nextDirection = direction;
+        food = randomFood();
+        score = 0;
+        scoreEl.textContent = score;
+        paused = false;
+        pauseBtn.textContent = 'Pauze';
+      }
+
+      function draw() {
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // eten
+        ctx.fillStyle = '#f87171';
+        ctx.fillRect(food.x * grid + 1, food.y * grid + 1, grid - 2, grid - 2);
+
+        // slang
+        snake.forEach((seg, i) => {
+          ctx.fillStyle = i === 0 ? '#4ade80' : '#22c55e';
+          ctx.fillRect(seg.x * grid + 1, seg.y * grid + 1, grid - 2, grid - 2);
+        });
+      }
+
+      function step() {
+        if (paused) return;
+
+        direction = nextDirection;
+        const head = {
+          x: snake[0].x + direction.x,
+          y: snake[0].y + direction.y
+        };
+
+        // botsing met rand
+        if (head.x < 0 || head.x >= cells || head.y < 0 || head.y >= cells) {
+          return gameOver();
+        }
+        // botsing met zichzelf
+        if (snake.some(seg => seg.x === head.x && seg.y === head.y)) {
+          return gameOver();
+        }
+
+        snake.unshift(head);
+
+        if (head.x === food.x && head.y === food.y) {
+          score += 1;
+          scoreEl.textContent = score;
+          food = randomFood();
+        } else {
+          snake.pop();
+        }
+
+        draw();
+      }
+
+      function gameOver() {
+        stopLoop();
+        running = false;
+        messageEl.textContent = `Game over — score: ${score}. Druk op Start / Herstart om opnieuw te spelen.`;
+        if (score > best) {
+          best = score;
+          bestScoreEl.textContent = best;
+          try { localStorage.setItem(STORAGE_KEY, String(best)); } catch (e) { /* storage niet beschikbaar */ }
+        }
+      }
+
+      function startLoop() {
+        stopLoop();
+        loopId = setInterval(step, speedMs);
+      }
+
+      function stopLoop() {
+        if (loopId) {
+          clearInterval(loopId);
+          loopId = null;
+        }
+      }
+
+      function startGame() {
+        resetGame();
+        running = true;
+        messageEl.textContent = 'Veel plezier!';
+        draw();
+        startLoop();
+      }
+
+      function togglePause() {
+        if (!running) return;
+        paused = !paused;
+        pauseBtn.textContent = paused ? 'Verder' : 'Pauze';
+        messageEl.textContent = paused ? 'Gepauzeerd.' : 'Veel plezier!';
+      }
+
+      function setDirection(dir) {
+        const map = {
+          up: { x: 0, y: -1 },
+          down: { x: 0, y: 1 },
+          left: { x: -1, y: 0 },
+          right: { x: 1, y: 0 }
+        };
+        const wanted = map[dir];
+        if (!wanted) return;
+
+        // niet rechtstreeks omkeren
+        if (wanted.x === -direction.x && wanted.y === -direction.y) return;
+
+        if (!running) {
+          startGame();
+        }
+        nextDirection = wanted;
+      }
+
+      document.addEventListener('keydown', (e) => {
+        const keyMap = {
+          ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right',
+          w: 'up', s: 'down', a: 'left', d: 'right',
+          W: 'up', S: 'down', A: 'left', D: 'right'
+        };
+        const dir = keyMap[e.key];
+        if (dir) {
+          e.preventDefault();
+          setDirection(dir);
+        } else if (e.key === ' ') {
+          e.preventDefault();
+          togglePause();
+        }
+      });
+
+      document.querySelectorAll('.game-dpad button').forEach(btn => {
+        btn.addEventListener('click', () => setDirection(btn.dataset.dir));
+      });
+
+      startBtn.addEventListener('click', startGame);
+      pauseBtn.addEventListener('click', togglePause);
+
+      // eerste tekening zodat het veld niet leeg oogt vóór de start
+      resetGame();
+      draw();
+      messageEl.textContent = 'Druk op een pijltjestoets, WASD of Start om te beginnen.';
+    })();
+  </script>
+
+</body>
+</html>
