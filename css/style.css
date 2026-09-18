@@ -545,6 +545,128 @@ section{ margin-bottom:3rem; }
 .card-details dt{ color:var(--text-muted); }
 .card-details dd{ margin:0; }
 
+/* ---------- Snake-extraatje (Nokia) ---------- */
+
+.snake-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+  margin-top:1.2rem;
+}
+
+.phone-frame{
+  position:relative;
+  width:min(100%, 300px);
+  background:linear-gradient(160deg, #1c2b45, #0a1220);
+  border:1px solid var(--border);
+  border-radius:32px;
+  padding:1.3rem 1.3rem 1.5rem;
+  box-shadow:0 20px 40px -20px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.phone-notch{
+  width:56px;
+  height:6px;
+  border-radius:99px;
+  background:var(--border);
+  margin:0 auto .9rem;
+}
+
+.phone-screen{
+  position:relative;
+  background:#c8d6a0;
+  border:3px solid #0a1220;
+  border-radius:8px;
+  padding:.55rem;
+  box-shadow:inset 0 2px 10px rgba(0,0,0,.4);
+}
+
+.snake-hud{
+  display:flex;
+  justify-content:space-between;
+  gap:.6rem;
+  font-family:'Space Grotesk', sans-serif;
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  color:#33421f;
+  margin-bottom:.4rem;
+}
+
+#snake-canvas{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1 / 1;
+  border-radius:3px;
+  cursor:pointer;
+  image-rendering:pixelated;
+  outline:none;
+}
+
+#snake-canvas:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+
+.snake-overlay{
+  position:absolute;
+  inset:.55rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.7rem;
+  padding:1rem;
+  text-align:center;
+  font-size:.85rem;
+  color:#eaf3d6;
+  background:rgba(18, 28, 14, .82);
+  border-radius:3px;
+}
+
+.snake-overlay[hidden]{ display:none; }
+
+.snake-overlay .btn{
+  padding:.5rem 1.1rem;
+  font-size:.85rem;
+}
+
+.phone-keys{
+  margin-top:1.1rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.5rem;
+}
+
+.key-row{ display:flex; align-items:center; gap:.5rem; }
+
+.key-btn{
+  width:2.6rem;
+  height:2.6rem;
+  border-radius:10px;
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  color:var(--text-muted);
+  font-size:1rem;
+  cursor:pointer;
+  transition:border-color .15s ease, color .15s ease, transform .1s ease;
+}
+
+.key-btn:hover{ color:var(--text); border-color:var(--accent-2); }
+.key-btn:active{ transform:scale(.92); }
+.key-btn-center{ font-size:.7rem; font-weight:700; }
+
+.snake-hint{
+  color:var(--text-muted);
+  font-size:.85rem;
+  text-align:center;
+  max-width:34ch;
+}
+
 /* ---------- Footer ---------- */
 
 footer.site-footer{
