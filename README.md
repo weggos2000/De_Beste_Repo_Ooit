@@ -24,7 +24,7 @@ Een kleine website over de intermezzo's van het 5e jaar Hardware (richting ICW).
 | Naam | Rol | Rechten |
 |---|---|---|
 | Vincent | CTO / Development manager (owner) | Beheert de repository en bewaakt de structuur |
-| Rico | Developer | Lezen en schrijven, werkt via feature branches |
+| Ricco | Developer | Lezen en schrijven, werkt via feature branches |
 | Thomas | Tester | Alleen lezen, test de website en geeft feedback via Issues en PR-comments |
 
 ## Bekijken
