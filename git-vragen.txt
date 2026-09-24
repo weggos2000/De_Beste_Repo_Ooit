@@ -14,8 +14,7 @@ te bekijken. Noteer het commando.
 Gedaan met git log --graph --all
 
 19. Leg kort uit welk verschil jullie in de geschiedenis zien tussen een gewone merge en squash and merge.
-We hebben geen squash and merge.
-
+De commits die in een push request zaten worden als 1 commit toegevoegd aan main bij een squash and merge.
 
 
 
