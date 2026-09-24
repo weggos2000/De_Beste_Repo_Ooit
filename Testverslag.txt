@@ -1,0 +1,4 @@
+index.html	ok
+github.html	ok
+kevin-mitnick.html	ok
+nokia.html	ok
