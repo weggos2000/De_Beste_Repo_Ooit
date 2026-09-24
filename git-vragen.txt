@@ -11,7 +11,7 @@ github.html, hero-github.svg, hero-hacking.svg, hero-nokia.svg, index.html, kevi
 
 18. Gebruik een Git-commando om de geschiedenis inclusief branches en merges grafisch in de terminal
 te bekijken. Noteer het commando.
-Gedaan met git log --graph
+Gedaan met git log --graph --all
 
 19. Leg kort uit welk verschil jullie in de geschiedenis zien tussen een gewone merge en squash and merge.
 We hebben geen squash and merge.
