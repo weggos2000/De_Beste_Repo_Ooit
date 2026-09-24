@@ -2,7 +2,7 @@
 Gedaan met git blame. Ricco of Vincent (geen regel gekozen)
 
 16. Wat is de korte hash van de commit waarin de Nokia-inhoud voor het eerst werd toegevoegd?
-De hash is c8a3178
+ c8a3178
 
 17. Welke bestanden werden in die commit gewijzigd? Noteer het gebruikte Git-commando.
 
