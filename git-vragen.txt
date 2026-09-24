@@ -2,7 +2,7 @@
 Gedaan met git blame. Ricco of Vincent (geen regel gekozen)
 
 16. Wat is de korte hash van de commit waarin de Nokia-inhoud voor het eerst werd toegevoegd?
-c8a3178
+De korte hash is c8a3178.
 
 17. Welke bestanden werden in die commit gewijzigd? Noteer het gebruikte Git-commando.
 
@@ -11,11 +11,10 @@ github.html, hero-github.svg, hero-hacking.svg, hero-nokia.svg, index.html, kevi
 
 18. Gebruik een Git-commando om de geschiedenis inclusief branches en merges grafisch in de terminal
 te bekijken. Noteer het commando.
-Gedaan met git log --graph
+Gedaan met git log --graph --all
 
 19. Leg kort uit welk verschil jullie in de geschiedenis zien tussen een gewone merge en squash and merge.
-We hebben geen squash and merge.
-
+De commits die in een push request zaten worden als 1 commit toegevoegd aan main bij een squash and merge.
 
 
 
