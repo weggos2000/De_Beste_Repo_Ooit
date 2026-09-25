@@ -1,5 +1,5 @@
-15. Wie heeft een door de leerkracht gekozen regel in een HTML-bestand het laatst gewijzigd
-Gedaan met git blame. Ricco of Vincent (geen regel gekozen)
+15. Wie heeft een door de leerkracht gekozen regel in een HTML-bestand het laatst gewijzigd (lijn 1)
+Gedaan met git blame. Ricco
 
 16. Wat is de korte hash van de commit waarin de Nokia-inhoud voor het eerst werd toegevoegd?
 De korte hash is c8a3178.
