@@ -1,22 +1,27 @@
-15. Wie heeft een door de leerkracht gekozen regel in een HTML-bestand het laatst gewijzigd (lijn 1)
-Gedaan met git blame. Ricco
+15. Wie heeft een door de leerkracht gekozen regel in een HTML-bestand het laatst gewijzigd? Noteer ook het gebruikte Git-commando.
+Gekozen regel: regel 1 van nokia.html (<!DOCTYPE html>)
+Commando: git blame -L 1,1 nokia.html
+Resultaat: c8a31786 (Riccova 2026-09-18 14:27:07) -> laatst gewijzigd door Ricco
+(Voor een andere regel: git blame -L <nr>,<nr> <bestand>.html)
 
 16. Wat is de korte hash van de commit waarin de Nokia-inhoud voor het eerst werd toegevoegd?
-De korte hash is c8a3178.
+De korte hash is c8a3178 ("Hier is de website", door Riccova).
+Commando: git log --diff-filter=A --oneline -- nokia.html
 
 17. Welke bestanden werden in die commit gewijzigd? Noteer het gebruikte Git-commando.
+Commando: git show --stat c8a3178   (of: git show --name-only c8a3178)
+Bestanden: github.html, hero-github.svg, hero-hacking.svg, hero-nokia.svg, index.html,
+kevin-mitnick.html, nokia.html, style.css
 
-Gedaan met git show.
-github.html, hero-github.svg, hero-hacking.svg, hero-nokia.svg, index.html, kevin-mitnick.html, nokia.html, style.css
+18. Gebruik een Git-commando om de geschiedenis inclusief branches en merges grafisch in de terminal te bekijken. Noteer het commando.
+git log --all --graph --oneline --decorate
 
-18. Gebruik een Git-commando om de geschiedenis inclusief branches en merges grafisch in de terminal
-te bekijken. Noteer het commando.
-Gedaan met git log --graph --all
-
-19. Leg kort uit welk verschil jullie in de geschiedenis zien tussen een gewone merge en squash and merge.
-De commits die in een push request zaten worden als 1 commit toegevoegd aan main bij een squash and merge.
-
-
-
-
- 
+19. Leg kort uit welk verschil jullie in de geschiedenis zien tussen een gewone merge en 'Squash and merge'.
+Bij een gewone merge blijven alle commits van de branch apart in de geschiedenis staan en komt er
+een extra merge commit bij met twee ouders ("Merge pull request #..."). In git log --graph zie je
+daardoor de zijtak die terug samenkomt met main.
+Bij 'Squash and merge' worden alle commits van een pull request samengeperst tot één nieuwe commit
+op main met maar één ouder. De geschiedenis blijft dan een rechte lijn en de losse commits van de
+branch zie je niet meer op main.
+In onze repository zijn de pull requests met een gewone merge samengevoegd, daarom zie je in de
+grafiek telkens de merge commits en de vertakkingen.
