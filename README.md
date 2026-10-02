@@ -1,4 +1,4 @@
-# De Beste Repo Ooit
+# De Beste Repo Ooit.
 
 Een kleine website over de intermezzo's van het 5e jaar Hardware (richting ICW). Dit is een groepsopdracht voor Git en GitHub. We oefenen hoe je als team samenwerkt met branches, pull requests, code reviews, mergeconflicten en `.gitignore`.
 
